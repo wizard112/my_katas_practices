@@ -27,5 +27,8 @@ git commit -m "feat(counter): implement increment logic"
 git add .
 git commit -m "refactor(counter): simplify state management"
 
+### KATA TO LEARN TDD 
+https://kata-log.rocks/tdd
+
 ## what is BDD ?
 https://katalon.com/resources-center/blog/bdd-testing
