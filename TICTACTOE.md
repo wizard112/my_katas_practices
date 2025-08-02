@@ -38,5 +38,9 @@ link: https://kata-log.rocks/tic-tac-toe-kata
 ### NAMING TEST FUNCTION
 -> should set symbol X on position when first player plays
 
+### Edge cases
+ - What happens if a player tries to play in a non-empty cell?
+ - What if the game is over and someone tries to play?
+
 
 
