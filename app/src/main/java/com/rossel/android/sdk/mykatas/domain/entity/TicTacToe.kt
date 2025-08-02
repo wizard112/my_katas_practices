@@ -21,7 +21,15 @@ class TicTacToe {
         players.add(element = Player(name = "O"))
     }*/
 
-    fun isGameOver(column: Int): Boolean = true
+    private var columns = hashMapOf<Int, Boolean>()
+    private var rows = hashMapOf<Int, Boolean>()
+    fun isGameOver(column: Int, row: Int): Boolean {
+        return (columns.size == 3 || rows.size == 3)
+    }
+    fun play(column: Int, row: Int) {
+        columns.put(column, true)
+        rows.put(row, true)
+    }
 
     /*fun takesTurn() {
 
