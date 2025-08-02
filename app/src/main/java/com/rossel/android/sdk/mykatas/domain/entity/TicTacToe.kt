@@ -1,66 +1,17 @@
 package com.rossel.android.sdk.mykatas.domain.entity
 
+import com.rossel.android.sdk.mykatas.data.managers.GridManager
+import com.rossel.android.sdk.mykatas.domain.interfaces.IManager
 
-data class Player(val name: String = "")
-const val PLAYER_X = "X"
-const val PLAYER_O = "O"
 
-class TicTacToe {
+class Game {
     private var grid = hashMapOf<Int, Player>()
-    val playerX = Player(name = PLAYER_X)
-    val playerO = Player(name = PLAYER_O)
+    private var manager: IManager = GridManager(grid = grid)
+    val playerOne = Player(name = PLAYER_X)
+    val playerTwo = Player(name = PLAYER_O)
 
-    fun isGameOver(): Boolean {
-        return isColumnTaken(player = playerX)
-                || isColumnTaken(player = playerO)
-                || isRowTaken(player = playerX)
-                || isRowTaken(player = playerO)
-                || isDiagonalTaken(player = playerX)
-                || isDiagonalTaken(player = playerO)
-                || isAllTaken()
-    }
-    fun play(position: Int, player: Player) {
+    fun play(position: Int, player: Player): Boolean {
         grid[position] = player
+        return manager.handle(player = playerOne) || manager.handle(player = playerTwo)
     }
-
-    private fun isColumnTaken(player: Player): Boolean{
-        return ((grid[1] == player
-                && grid[4] == player
-                && grid[7] == player)
-                || (grid[2] == player
-                && grid[5] == player
-                && grid[8] == player)
-                || (grid[3] == player
-                && grid[6] == player
-                && grid[9] == player)
-        )
-    }
-
-    private fun isRowTaken(player: Player): Boolean{
-        return ((grid[1] == player
-                && grid[2] == player
-                && grid[3] == player)
-                || (grid[4] == player
-                && grid[5] == player
-                && grid[6] == player)
-                || (grid[7] == player
-                && grid[8] == player
-                && grid[9] == player)
-                )
-    }
-
-    private fun isDiagonalTaken(player: Player): Boolean {
-        return ((grid[1] == player
-                && grid[5] == player
-                && grid[9] == player)
-                || (grid[3] == player
-                && grid[5] == player
-                && grid[7] == player)
-                )
-    }
-
-    private fun isAllTaken(): Boolean {
-        return grid.size == 9
-    }
-
 }
