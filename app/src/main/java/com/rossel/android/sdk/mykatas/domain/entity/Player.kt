@@ -1,3 +1,5 @@
 package com.rossel.android.sdk.mykatas.domain.entity
 
-data class Player(val name: String = "")
+import com.rossel.android.sdk.mykatas.domain.enums.Symbols
+
+data class Player(val symbol: Symbols = Symbols.EMPTY)
