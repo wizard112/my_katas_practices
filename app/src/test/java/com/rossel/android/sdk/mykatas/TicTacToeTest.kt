@@ -55,26 +55,34 @@ class TicTacToeTest {
         ticTacToe.play(position = 9,  player = ticTacToe.playerX)
         Assert.assertEquals(true, ticTacToe.isGameOver())
     }
-/*
+
     @Test
-    fun `should the game is over when all fields in a diagonal are taken by a player`() {
-        ticTacToe.play(column = 1, row = 1, player = Player(name = "X"))
-        ticTacToe.play(column = 5, row = 1, player = Player(name = "O"))
-        ticTacToe.play(column = 9, row = 1, player = Player(name = "O"))
+    fun `should the game is over when all fields in a diagonal 1 are taken by a player`() {
+        ticTacToe.play(position = 1, player = ticTacToe.playerO)
+        ticTacToe.play(position = 5, player = ticTacToe.playerO)
+        ticTacToe.play(position = 9,  player = ticTacToe.playerO)
+        Assert.assertEquals(true, ticTacToe.isGameOver())
+    }
+
+    @Test
+    fun `should the game is over when all fields in a diagonal 2 are taken by a player`() {
+        ticTacToe.play(position = 7, player = ticTacToe.playerO)
+        ticTacToe.play(position = 3, player = ticTacToe.playerO)
+        ticTacToe.play(position = 5,  player = ticTacToe.playerO)
         Assert.assertEquals(true, ticTacToe.isGameOver())
     }
 
     @Test
     fun `should the game is over when all fields are taken`() {
-        ticTacToe.play(column = 1, row = 1, player = Player(name = "O"))
-        ticTacToe.play(column = 1, row = 2, player = Player(name = "X"))
-        ticTacToe.play(column = 1, row = 3, player = Player(name = "0"))
-        ticTacToe.play(column = 2, row = 1, player = Player(name = "X"))
-        ticTacToe.play(column = 2, row = 2, player = Player(name = "0"))
-        ticTacToe.play(column = 2, row = 3, player = Player(name = "X"))
-        ticTacToe.play(column = 3, row = 1, player = Player(name = "X"))
-        ticTacToe.play(column = 3, row = 2, player = Player(name = "0"))
-        ticTacToe.play(column = 3, row = 3, player = Player(name = "X"))
+        ticTacToe.play(position = 1, player = ticTacToe.playerO)
+        ticTacToe.play(position = 2, player = ticTacToe.playerX)
+        ticTacToe.play(position = 3, player = ticTacToe.playerX)
+        ticTacToe.play(position = 4, player = ticTacToe.playerX)
+        ticTacToe.play(position = 5, player = ticTacToe.playerO)
+        ticTacToe.play(position = 6, player = ticTacToe.playerO)
+        ticTacToe.play(position = 7, player = ticTacToe.playerO)
+        ticTacToe.play(position = 8, player = ticTacToe.playerX)
+        ticTacToe.play(position = 9, player = ticTacToe.playerX)
         Assert.assertEquals(true, ticTacToe.isGameOver())
-    }*/
+    }
 }
