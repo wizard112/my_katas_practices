@@ -23,8 +23,8 @@ class TicTacToe {
 
     private var columns = hashMapOf<Int, Boolean>()
     private var rows = hashMapOf<Int, Boolean>()
-    fun isGameOver(column: Int, row: Int): Boolean {
-        return (columns.size == 3 || rows.size == 3)
+    fun isGameOver(): Boolean {
+        return (columns.values.filter { it }.size == 3 || rows.values.filter { it }.size == 3)
     }
     fun play(column: Int, row: Int) {
         columns.put(column, true)

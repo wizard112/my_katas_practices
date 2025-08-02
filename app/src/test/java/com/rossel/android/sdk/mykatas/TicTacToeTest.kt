@@ -13,7 +13,7 @@ class TicTacToeTest {
         ticTacToe.play(column = 1, row = 1)
         ticTacToe.play(column = 1, row = 2)
         ticTacToe.play(column = 1, row = 3)
-        Assert.assertEquals(true, ticTacToe.isGameOver(column = 1, row = 1))
+        Assert.assertEquals(true, ticTacToe.isGameOver())
     }
 
     @Test
@@ -21,7 +21,7 @@ class TicTacToeTest {
         ticTacToe.play(column = 1, row = 1)
         ticTacToe.play(column = 2, row = 1)
         ticTacToe.play(column = 3, row = 1)
-        Assert.assertEquals(true, ticTacToe.isGameOver(column = 1, row = 1))
+        Assert.assertEquals(true, ticTacToe.isGameOver())
     }
 
     @Test
@@ -29,7 +29,7 @@ class TicTacToeTest {
         ticTacToe.play(column = 1, row = 1)
         ticTacToe.play(column = 5, row = 1)
         ticTacToe.play(column = 9, row = 1)
-        Assert.assertEquals(true, ticTacToe.isGameOver(column = 1, row = 1))
+        Assert.assertEquals(true, ticTacToe.isGameOver())
     }
 
     @Test
@@ -37,6 +37,6 @@ class TicTacToeTest {
         ticTacToe.play(column = 1, row = 1)
         ticTacToe.play(column = 2, row = 1)
         ticTacToe.play(column = 3, row = 1)
-        Assert.assertEquals(true, ticTacToe.isGameOver(column = 1, row = 1))
+        Assert.assertEquals(true, ticTacToe.isGameOver())
     }
 }
