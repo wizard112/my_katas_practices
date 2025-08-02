@@ -35,5 +35,8 @@ link: https://kata-log.rocks/tic-tac-toe-kata
   When playing
   Then the game has nine fields in 3x3 grid
 
+### NAMING TEST FUNCTION
+-> should set symbol X on position when first player plays
+
 
 
