@@ -26,9 +26,9 @@ class TicTacToe {
     fun isGameOver(): Boolean {
         return (columns.values.filter { it }.size == 3 || rows.values.filter { it }.size == 3)
     }
-    fun play(column: Int, row: Int) {
-        columns.put(column, true)
-        rows.put(row, true)
+    fun play(column: Int, row: Int, player: String) {
+        columns[column] = true
+        rows[row] = true
     }
 
     /*fun takesTurn() {
