@@ -1,43 +1,46 @@
 package com.rossel.android.sdk.mykatas.domain.entity
 
-/*class Column {
-    var player: String = ""
-    var position: Int = -1
-}
-class Row {
-    var player: String = ""
-    var position: Int = -1
-}*/
 
-data class Player(var name: String = "")
+data class Player(val name: String = "")
 
 class TicTacToe {
-    //private var columns: MutableList<Column> = mutableListOf()
-    //private var rows: MutableList<Row> = mutableListOf()
-    //private var players: MutableList<Player> = mutableListOf()
-    //private var player: Player
-
-    /*init {
-        players.add(element = Player(name = "X"))
-        players.add(element = Player(name = "O"))
-    }*/
-
-    private var columns = hashMapOf<Int, Player>()
-    private var rows = hashMapOf<Int, Player>()
+    private var grid = hashMapOf<Int, Player>()
+    val playerX = Player(name = "X")
+    val playerO = Player(name = "0")
     fun isGameOver(): Boolean {
-        return (columns[1]?.name == "X" &&
-                (rows[1]?.name == "X" || rows[2]?.name == "X" || rows[3]?.name == "X" )
-                || columns[2]?.name == "X" &&
-                (rows[1]?.name == "X" || rows[2]?.name == "X" || rows[3]?.name == "X" )
-                || columns[3]?.name == "X" &&
-                (rows[1]?.name == "X" || rows[2]?.name == "X" || rows[3]?.name == "X" ))
+        return isColumnTaken(player = playerX)
+                || isColumnTaken(player = playerO)
+                || isRowTaken(player = playerX)
+                || isRowTaken(player = playerO)
     }
-    fun play(column: Int, row: Int, player: Player) {
-        columns[column] = player
-        rows[row] = player
+    fun play(position: Int, player: Player) {
+        grid[position] = player
     }
 
-    /*fun takesTurn() {
+    private fun isColumnTaken(player: Player): Boolean{
+        return ((grid[1] == player
+                && grid[4] == player
+                && grid[7] == player)
+                || (grid[2] == player
+                && grid[5] == player
+                && grid[8] == player)
+                || (grid[3] == player
+                && grid[6] == player
+                && grid[9] == player)
+        )
+    }
 
-    }*/
+    private fun isRowTaken(player: Player): Boolean{
+        return ((grid[1] == player
+                && grid[2] == player
+                && grid[3] == player)
+                || (grid[4] == player
+                && grid[5] == player
+                && grid[6] == player)
+                || (grid[7] == player
+                && grid[8] == player
+                && grid[9] == player)
+                )
+    }
+
 }
