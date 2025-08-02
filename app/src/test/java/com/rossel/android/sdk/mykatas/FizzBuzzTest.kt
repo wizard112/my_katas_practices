@@ -6,9 +6,15 @@ import org.junit.Test
 
 class FizzBuzzTest {
     @Test
-    fun `prints fizz instead of the number if the number is a multiple of three`() {
+    fun `prints Fizz instead of the number if the number is a multiple of three`() {
         Assert.assertEquals("Fizz", 3.fizzBuzz())
         Assert.assertEquals("Fizz", 6.fizzBuzz())
         Assert.assertEquals("Fizz", 9.fizzBuzz())
+    }
+
+    @Test
+    fun `prints Buzz instead of the number if the number is a multiple of five`() {
+        Assert.assertEquals("Buzz", 5.fizzBuzz())
+        Assert.assertEquals("Buzz", 10.fizzBuzz())
     }
 }
