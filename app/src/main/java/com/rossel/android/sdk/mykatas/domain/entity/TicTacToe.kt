@@ -1,18 +1,18 @@
 package com.rossel.android.sdk.mykatas.domain.entity
 
-import com.rossel.android.sdk.mykatas.data.managers.WinnerChecker
-import com.rossel.android.sdk.mykatas.domain.enums.Symbols
-import com.rossel.android.sdk.mykatas.domain.interfaces.IChecker
-
+import com.rossel.android.sdk.mykatas.data.game.Board
+import com.rossel.android.sdk.mykatas.data.game.Engine
+import com.rossel.android.sdk.mykatas.domain.interfaces.IBoard
+import com.rossel.android.sdk.mykatas.domain.interfaces.IEngine
 
 class Game {
-    private var grid = hashMapOf<Int, Player>()
-    private var board: IChecker = WinnerChecker(grid = grid)
-    val playerOne = Player(symbol = Symbols.X)
-    val playerTwo = Player(symbol = Symbols.O)
+    private val engine: IEngine = Engine()
+    private val board: IBoard = Board()
+    var isOver: Boolean = false
 
-    fun play(position: Int, player: Player): Boolean {
-        grid[position] = player
-        return board.hasPlayerWon(player = playerOne) || board.hasPlayerWon(player = playerTwo)
+    fun play(position: Int) {
+        val player = engine.turnTo()
+        board.takeField(position = position, player = player)
+        isOver = board.isFinished(player = player)
     }
 }
