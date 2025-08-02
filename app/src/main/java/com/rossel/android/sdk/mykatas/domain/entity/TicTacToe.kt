@@ -6,12 +6,12 @@ import com.rossel.android.sdk.mykatas.domain.interfaces.IManager
 
 class Game {
     private var grid = hashMapOf<Int, Player>()
-    private var manager: IManager = GridManager(grid = grid)
+    private var board: IManager = GridManager(grid = grid)
     val playerOne = Player(name = PLAYER_X)
     val playerTwo = Player(name = PLAYER_O)
 
     fun play(position: Int, player: Player): Boolean {
         grid[position] = player
-        return manager.handle(player = playerOne) || manager.handle(player = playerTwo)
+        return board.handle(player = playerOne) || board.handle(player = playerTwo)
     }
 }
