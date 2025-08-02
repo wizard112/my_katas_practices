@@ -17,4 +17,11 @@ class FizzBuzzTest {
         Assert.assertEquals("Buzz", 5.fizzBuzz())
         Assert.assertEquals("Buzz", 10.fizzBuzz())
     }
+
+    @Test
+    fun `prints FizzBuzz instead of the number if the number is a multiple of both three and five`() {
+        Assert.assertEquals("FizzBuzz", 15.fizzBuzz())
+        Assert.assertEquals("FizzBuzz", 30.fizzBuzz())
+        Assert.assertEquals("FizzBuzz", 45.fizzBuzz())
+    }
 }
