@@ -17,5 +17,5 @@ class Game {
         isOver = board.isFinished(player = player)
     }
 
-    fun player(): Player = player
+    fun player(): Player = engine.nexTurnFor()
 }

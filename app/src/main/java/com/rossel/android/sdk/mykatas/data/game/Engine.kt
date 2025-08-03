@@ -10,7 +10,11 @@ class Engine: IEngine {
     private var current: Player = playerOne
 
     override fun turnTo(): Player {
-        return if (current == playerOne) playerTwo else playerOne
+        current = nexTurnFor()
+        return current
     }
 
+    override fun nexTurnFor(): Player {
+        return if (current == playerOne) playerTwo else playerOne
+    }
 }

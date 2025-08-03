@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -23,43 +24,58 @@ import com.rossel.android.sdk.mykatas.ui.TicTacToeViewModel
 
 @Composable
 fun TicTacToeScreen(viewModel: TicTacToeViewModel) {
-    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val playerName by viewModel.playerName.collectAsStateWithLifecycle()
+    Log.d("TESTTICTACTOE"," player : $playerName")
 
     when {
-        uiState.value.loading -> {}
-        uiState.value.error != null -> {}
-        uiState.value.board -> {
+        uiState.loading -> {}
+        uiState.error != null -> {}
+        uiState.symbols.isNotEmpty() -> {
             LazyVerticalGrid (columns = GridCells.Fixed(count = 3),
                 modifier = Modifier
                     .padding(top = 100.dp)
                     .fillMaxWidth()) {
-                viewModel.mutableBoard.forEach { item ->
-                    Log.d("TESTTICTACTOE","from list ${item.name} ***")
-                }
                 items(count = viewModel.mutableBoard.size,
                     key = { it }) { position ->
                     val symbol = viewModel.mutableBoard[position]
-                    Log.d("TESTTICTACTOE","item is ${symbol.name} ***")
-                    Column(modifier = Modifier
-                        .size(size = 40.dp)
-                        .background(color = Color.White, shape = RoundedCornerShape(size = 10.dp))
-                        .clickable {
-                            Log.d("TESTTICTACTOE","click ${symbol.name}")
-                            viewModel.handleIntents(intent = TicTacToeIntents.Play(position = position))
-                        }) {
-                        Text(text = when(symbol) {
-                            Symbols.X -> Symbols.X.name
-                            Symbols.O -> Symbols.O.name
-                            Symbols.EMPTY -> ""
-                        },
-                            color = when(symbol) {
-                                Symbols.X -> Color.Red
-                                Symbols.O -> Color.Green
-                                Symbols.EMPTY -> Color.Yellow
-                            })
-                    }
+                    GridCell(viewModel = viewModel, symbol = symbol, position = position+1)
                 }
             }
         }
+        uiState.board -> {
+            LazyVerticalGrid (columns = GridCells.Fixed(count = 3),
+                modifier = Modifier
+                    .padding(top = 100.dp)
+                    .fillMaxWidth()) {
+                items(count = viewModel.mutableBoard.size,
+                    key = { it }) { position ->
+                    val symbol = viewModel.mutableBoard[position]
+                    GridCell(viewModel = viewModel, symbol = symbol, position = position+1)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun GridCell(viewModel: TicTacToeViewModel, position: Int, symbol: Symbols) {
+    val buttonState by viewModel.enableButton.collectAsStateWithLifecycle()
+    Column(modifier = Modifier
+        .size(size = 40.dp)
+        .background(color = Color.White, shape = RoundedCornerShape(size = 10.dp))
+        .clickable(enabled = buttonState) {
+            viewModel.handleIntents(intent = TicTacToeIntents.MakeMove(position = position))
+        }) {
+        Text(text = when(symbol) {
+            Symbols.X -> Symbols.X.name
+            Symbols.O -> Symbols.O.name
+            Symbols.EMPTY -> ""
+        },
+            color = when(symbol) {
+                Symbols.X -> Color.Red
+                Symbols.O -> Color.Green
+                Symbols.EMPTY -> Color.Yellow
+            })
     }
 }

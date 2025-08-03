@@ -1,6 +1,6 @@
 package com.rossel.android.sdk.mykatas.ui
 
-import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import com.rossel.android.sdk.mykatas.data.exception.TicTacToeException
 import com.rossel.android.sdk.mykatas.domain.entity.Game
@@ -14,8 +14,14 @@ class TicTacToeViewModel: ViewModel() {
     private val _uiState: MutableStateFlow<TicTactToeUiState> = MutableStateFlow(TicTactToeUiState(loading = true, board = false, error = null))
     val uiState: StateFlow<TicTactToeUiState> = _uiState.asStateFlow()
 
+    private val _enableButton = MutableStateFlow(true)
+    val enableButton: StateFlow<Boolean> = _enableButton.asStateFlow()
+
+    private val _playerName = MutableStateFlow("")
+    val playerName: StateFlow<String> = _playerName.asStateFlow()
+
     private val game: Game = Game()
-    val mutableBoard = mutableListOf<Symbols>()
+    val mutableBoard = mutableStateListOf<Symbols>()
     init {
         mutableBoard.addAll(elements = giveMeSymbols())
     }
@@ -25,16 +31,24 @@ class TicTacToeViewModel: ViewModel() {
             TicTacToeIntents.Start -> {
                 _uiState.update { it.copy(
                     loading = false,
-                    board = true,
-                    error = null
+                    board = false,
+                    error = null,
+                    symbols = giveMeSymbols()
                 ) }
             }
-            is TicTacToeIntents.Play -> {
+            is TicTacToeIntents.MakeMove -> {
                 try {
                     game.play(intent.position)
                     mutableBoard.clear()
                     mutableBoard.addAll(elements = giveMeSymbols())
-                    mutableBoard.forEach { item -> Log.d("TESTTICTACTOE","---- ${item.name} ----") }
+                    _uiState.update { it.copy(
+                        loading = false,
+                        board = false,
+                        error = null,
+                        symbols = giveMeSymbols()
+                    ) }
+                    _enableButton.update { !game.isOver }
+                    _playerName.update { game.player().symbol.name }
                 } catch (ex: TicTacToeException) {
                     ex.printStackTrace()
                     _uiState.update { it.copy(
