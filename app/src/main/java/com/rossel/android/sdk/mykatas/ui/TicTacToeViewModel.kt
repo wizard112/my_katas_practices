@@ -1,6 +1,5 @@
 package com.rossel.android.sdk.mykatas.ui
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import com.rossel.android.sdk.mykatas.data.exception.TicTacToeException
 import com.rossel.android.sdk.mykatas.domain.entity.Game
@@ -21,10 +20,6 @@ class TicTacToeViewModel: ViewModel() {
     val playerName: StateFlow<String> = _playerName.asStateFlow()
 
     private val game: Game = Game()
-    val mutableBoard = mutableStateListOf<Symbols>()
-    init {
-        mutableBoard.addAll(elements = giveMeSymbols())
-    }
 
     fun handleIntents(intent: TicTacToeIntents) {
         when(intent) {
@@ -38,8 +33,6 @@ class TicTacToeViewModel: ViewModel() {
             is TicTacToeIntents.MakeMove -> {
                 try {
                     game.play(intent.position)
-                    mutableBoard.clear()
-                    mutableBoard.addAll(elements = giveMeSymbols())
                     _uiState.update { it.copy(
                         loading = false,
                         error = null,

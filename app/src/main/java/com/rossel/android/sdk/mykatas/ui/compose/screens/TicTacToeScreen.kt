@@ -39,9 +39,9 @@ fun TicTacToeScreen(viewModel: TicTacToeViewModel) {
                 verticalArrangement = Arrangement.spacedBy(20.dp),
                 modifier = Modifier
                     .padding(top = 100.dp, start = 20.dp, end = 20.dp)) {
-                items(count = viewModel.mutableBoard.size,
+                items(count = uiState.symbols.size,
                     key = { it }) { position ->
-                    val symbol = viewModel.mutableBoard[position]
+                    val symbol = uiState.symbols[position]
                     GridCell(viewModel = viewModel, symbol = symbol, position = position+1)
                 }
             }
