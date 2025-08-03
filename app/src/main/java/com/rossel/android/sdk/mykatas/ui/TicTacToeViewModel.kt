@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class TicTacToeViewModel: ViewModel() {
-    private val _uiState: MutableStateFlow<TicTactToeUiState> = MutableStateFlow(TicTactToeUiState(loading = true, board = false, error = null))
+    private val _uiState: MutableStateFlow<TicTactToeUiState> = MutableStateFlow(TicTactToeUiState(loading = true, error = null))
     val uiState: StateFlow<TicTactToeUiState> = _uiState.asStateFlow()
 
     private val _enableButton = MutableStateFlow(true)
@@ -31,7 +31,6 @@ class TicTacToeViewModel: ViewModel() {
             TicTacToeIntents.Start -> {
                 _uiState.update { it.copy(
                     loading = false,
-                    board = false,
                     error = null,
                     symbols = giveMeSymbols()
                 ) }
@@ -43,7 +42,6 @@ class TicTacToeViewModel: ViewModel() {
                     mutableBoard.addAll(elements = giveMeSymbols())
                     _uiState.update { it.copy(
                         loading = false,
-                        board = false,
                         error = null,
                         symbols = giveMeSymbols()
                     ) }
@@ -53,8 +51,8 @@ class TicTacToeViewModel: ViewModel() {
                     ex.printStackTrace()
                     _uiState.update { it.copy(
                         loading = false,
-                        board = true,
-                        error = ex.msg
+                        error = ex.msg,
+                        symbols = giveMeSymbols()
                     ) }
                 }
             }
