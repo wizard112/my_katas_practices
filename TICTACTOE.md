@@ -38,6 +38,13 @@ link: https://kata-log.rocks/tic-tac-toe-kata
 ### NAMING TEST FUNCTION
 -> should set symbol X on position when first player plays
 
+### TIPS
+- test view model
+- test for every conditions: if, when, ...
+- test UI jetpack compose
+- think about theme : dark and light
+- use MVI with sealed class with mutable state flow
+
 ### Edge cases
  - What happens if a player tries to play in a non-empty cell?
  - What if the game is over and someone tries to play?
