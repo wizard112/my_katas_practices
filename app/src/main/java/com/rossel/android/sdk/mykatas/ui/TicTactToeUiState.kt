@@ -1,11 +1,9 @@
 package com.rossel.android.sdk.mykatas.ui
 
-import androidx.compose.runtime.Immutable
-import com.rossel.android.sdk.mykatas.domain.enums.Symbols
-
-@Immutable
-data class TicTactToeUiState(
-    var loading: Boolean = false,
-    var error: String? = null,
-    var symbols: List<Symbols> = emptyList()
-)
+sealed class TicTacToeState {
+    object Loading: TicTacToeState()
+    data class Symbols(val symbols: List<com.rossel.android.sdk.mykatas.domain.enums.Symbols>,
+                       val name: String,
+                       val enable: Boolean,
+                       val error: String): TicTacToeState()
+}

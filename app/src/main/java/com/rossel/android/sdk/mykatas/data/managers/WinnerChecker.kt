@@ -1,6 +1,5 @@
 package com.rossel.android.sdk.mykatas.data.managers
 
-import android.util.Log
 import com.rossel.android.sdk.mykatas.data.strategies.ColumnStrategy
 import com.rossel.android.sdk.mykatas.data.strategies.DiagonalStrategy
 import com.rossel.android.sdk.mykatas.data.strategies.RowStrategy
@@ -19,7 +18,6 @@ class WinnerChecker(val grid: HashMap<Int, Player>):
 
     override fun hasPlayerWon(player: Player): Boolean {
         val result = strategies.any { winStrategy -> winStrategy.isTaken(player = player) }
-        Log.d("TESTTICTACTOE","result is $result & ${isAllTaken()}")
         return result || isAllTaken()
     }
 

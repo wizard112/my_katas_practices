@@ -11,6 +11,22 @@ class Board: IBoard {
     var grid = hashMapOf<Int, Player>()
     var board: IChecker = WinnerChecker(grid = grid)
     init {
+        initWithEmpty()
+    }
+
+    override fun takeField(position: Int, player: Player) {
+        if (grid[position] != null && grid[position]?.symbol != Symbols.EMPTY)
+            throw TicTacToeException(msg = "The field is already taken")
+        grid[position] = player
+    }
+
+    override fun isFinished(player: Player): Boolean {
+        return board.hasPlayerWon(player = player)
+    }
+
+    override fun giveMeBoard(): Map<Int, Player> = grid
+
+    private fun initWithEmpty() {
         grid[1] = Player(symbol = Symbols.EMPTY)
         grid[2] = Player(symbol = Symbols.EMPTY)
         grid[3] = Player(symbol = Symbols.EMPTY)
@@ -21,16 +37,4 @@ class Board: IBoard {
         grid[8] = Player(symbol = Symbols.EMPTY)
         grid[9] = Player(symbol = Symbols.EMPTY)
     }
-
-    override fun takeField(position: Int, player: Player) {
-        if (grid[position] != null && grid[position]?.symbol != Symbols.EMPTY)
-            throw TicTacToeException(msg = "The field is already taken ")
-        grid[position] = player
-    }
-
-    override fun isFinished(player: Player): Boolean {
-        return board.hasPlayerWon(player = player)
-    }
-
-    override fun giveMeBoard(): Map<Int, Player> = grid
 }

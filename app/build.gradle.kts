@@ -49,6 +49,10 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // UI Tests
+    androidTestImplementation (libs.androidx.ui.test.junit4)
+    debugImplementation (libs.androidx.ui.test.manifest)
+
     implementation(platform(libs.androidx.compose.bom))
 
     implementation(libs.androidx.foundation)
@@ -56,4 +60,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.material3)
+
+    implementation(libs.androidx.constraintlayout.compose)
+    testImplementation(kotlin("test"))
 }

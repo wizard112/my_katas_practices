@@ -10,45 +10,39 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class TicTacToeViewModel: ViewModel() {
-    private val _uiState: MutableStateFlow<TicTactToeUiState> = MutableStateFlow(TicTactToeUiState(loading = true, error = null))
-    val uiState: StateFlow<TicTactToeUiState> = _uiState.asStateFlow()
-
-    private val _enableButton = MutableStateFlow(true)
-    val enableButton: StateFlow<Boolean> = _enableButton.asStateFlow()
-
-    private val _playerName = MutableStateFlow("")
-    val playerName: StateFlow<String> = _playerName.asStateFlow()
+    private val _uiState: MutableStateFlow<TicTacToeState> = MutableStateFlow(TicTacToeState.Loading)
+    val uiState: StateFlow<TicTacToeState> = _uiState.asStateFlow()
 
     private val game: Game = Game()
 
     fun handleIntents(intent: TicTacToeIntents) {
         when(intent) {
-            TicTacToeIntents.Start -> {
-                _uiState.update { it.copy(
-                    loading = false,
-                    error = null,
-                    symbols = giveMeSymbols()
-                ) }
-            }
+            TicTacToeIntents.Start -> { updateState(gameState = "Player ${game.player().symbol.name} is your turn") }
             is TicTacToeIntents.MakeMove -> {
                 try {
+                    val actualPlayer = game.player().symbol.name
                     game.play(intent.position)
-                    _uiState.update { it.copy(
-                        loading = false,
-                        error = null,
-                        symbols = giveMeSymbols()
-                    ) }
-                    _enableButton.update { !game.isOver }
-                    _playerName.update { game.player().symbol.name }
+                    val text = if (game.isOver) {
+                        "Game is over ! Player $actualPlayer is the winner"
+                    } else {
+                        "Player ${game.player().symbol.name} is your turn"
+                    }
+                    updateState(gameState = text)
                 } catch (ex: TicTacToeException) {
                     ex.printStackTrace()
-                    _uiState.update { it.copy(
-                        loading = false,
-                        error = ex.msg,
-                        symbols = giveMeSymbols()
-                    ) }
+                    updateState(gameState = "the ${intent.position} is already taken", errorMsg = ex.msg)
                 }
             }
+        }
+    }
+
+    private fun updateState(gameState: String, errorMsg: String = "") {
+        _uiState.update {
+            TicTacToeState.Symbols(
+                symbols = giveMeSymbols(),
+                name = gameState,
+                enable = !game.isOver,
+                error = errorMsg)
         }
     }
 
